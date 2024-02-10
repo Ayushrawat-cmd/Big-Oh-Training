@@ -27,15 +27,37 @@ class MessageController:
         self.contactServie = contactService
         self.messageService = messageService
 
+    @controller.route.get("/{user_id}/sentmessages")
+    def read_sent_message(self, user_id: str):
+        '''Read the sent message by the user'''
+        try:
+            msgs = self.messageService.read_sent_messages(user_id)
+            return JSONResponse(status_code=status.HTTP_200_OK, content={"message":"Your sent messages", "Sent Messages": jsonable_encoder(msgs)})
+        except Exception as error:
+            logger.error(f"Error in reading sent messages {error}")
+            return throw_error(status= status.HTTP_500_INTERNAL_SERVER_ERROR, message= "Internal Server Error", error_code= 500, error= error)
+    
+    @controller.route.get("/{user_id}/recievedmessages")
+    def read_recieved_message(self, user_id: str):
+        '''Read the recieved message by the user'''
+        try:
+            msgs = self.messageService.read_recieved_messages(user_id)
+            return JSONResponse(status_code=status.HTTP_200_OK, content={"message":"Your recieved messages", "Recieved Messages": jsonable_encoder(msgs)})
+        except Exception as error:
+            logger.error(f"Error in reading sent messages {error}")
+            return throw_error(status= status.HTTP_500_INTERNAL_SERVER_ERROR, message= "Internal Server Error", error_code= 500, error= error)
+
     @controller.route.post("/{user_id}/message")
     def sendMessage(self, message:Union[ AudioSchema, TextSchema, VideoSchema], user_id:str = None):
+        '''Sending message'''
         try:
             msg = self.messageService.sendMessage(msg=message,senderId= user_id)
+            print(msg)
             if msg  is False:
-                return Errors.HTTP_400_BAD_REQUEST
-            return  JSONResponse(status_code=status.HTTP_200_OK, content={"message":"Your message is successfully sent", "success":1,"users": jsonable_encoder(msg)})
+                return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"message":"Message not sent", "success":"False","error": "The given contact id is not present in the given user contacts"})
+            return  JSONResponse(status_code=status.HTTP_200_OK, content={"message":"Your message is successfully sent", "success":"True","Message": jsonable_encoder(msg)})
         except Exception as error:
-            logger.error(f"Error in getting user {error}")
+            logger.error(f"Error in sending message {error}")
             return throw_error(status= status.HTTP_500_INTERNAL_SERVER_ERROR, message= "Internal Server Error", error_code= 500, error= error)
     
 

@@ -20,7 +20,15 @@ class UserRepository():
     
     def get_by_id(self, id):
         logger.debug(f'Getting user {id} from db')
+        return self.db.query(UserModel).filter(UserModel.id == id).first().recievedMessages
+
+    def getSentMessage(self, id):
+        logger.debug(f'Getting sent messages by user {id} from db')
         return self.db.query(UserModel).filter(UserModel.id == id).first().sentMessages
+    
+    def getRecievedMessage(self, id):
+        logger.debug(f'Getting recieved messages by user {id} from db')
+        return self.db.query(UserModel).filter(UserModel.id == id).first().recievedMessages
 
     def getContactsOfUser(self, id):
         logger.debug(f'Getting contacts of user {id} from db')
@@ -35,17 +43,6 @@ class UserRepository():
         self.db.refresh(db_user)
         return db_user
 
-    # def addContact(self, contact:UserSchema, userId: str):
-    #     '''Inserting the contact for the given user in the db'''
-    #     db_user = self.db.query(UserModel).filter(UserModel.id == userId).first()
-    #     db_contact =self.db.query(UserModel).filter(UserModel.id == contact.id).first() 
-    #     if db_contact is None:
-    #         db_contact = self.contact_repo.insert(contact, userId)            
-
-    #     db_user.contacts.append(db_contact)
-    #     self.db.commit()
-    #     self.db.refresh(db_user)
-        
     def delete(self, userId):
         '''Delete query for the deleting movie from db'''
         db_user = self.db.query(UserModel).filter(UserModel.id == userId).first()

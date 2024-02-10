@@ -24,11 +24,17 @@ class MessageService():
     #     logger.debug("Getting all users from db")
     #     return self.repository.read()
     
+    def read_recieved_messages(self, reciever_id:str):
+        return self.repository.read_recieved_messages(reciever_id)
+    
+    def read_sent_messages(self, senderId: str):
+        return self.repository.read_sent_messages(senderId)
+
     def sendMessage(self, msg:Union[ AudioSchema, TextSchema, VideoSchema], senderId: str):
         '''Send the audio message'''
         logger.debug(f'Sending message {msg}')
-        # if self.contactValidationService.isContactExist(msg.recieverId, senderId):
-        return self.repository.insertAudioMessage(msg,senderId)
+        # if self.contactValidationService.isContactExist(msg.reciever_phone_no, senderId):
+        return self.repository.insert(msg,senderId)
         # return False
     
     # def sendTextMessage(self, msg:TextSchema, senderId:)

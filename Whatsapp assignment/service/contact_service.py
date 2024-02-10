@@ -16,4 +16,7 @@ class ContactService():
         # if self.repository.get_by_id(userId) is None:
         #     return None
         return self.repository.insert(new_contact, userId)
-        
+    
+    def getContacts(self,  userId: str):
+        '''Get contacts of the user'''
+        return self.repository.getContactsOfUser(userId)

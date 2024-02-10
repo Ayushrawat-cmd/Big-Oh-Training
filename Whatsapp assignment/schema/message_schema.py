@@ -6,8 +6,8 @@ class MessageSchema(BaseModel):
     '''Schema for the User api by which fastapi uses to interact with database'''
     id: str = Field(..., min_length=3, max_length=50)
     # type:str = Field(..., min_length=3, max_length=50)
-    recieverId:str = Field(..., min_length=3, max_length=50)
-    content:str 
+    reciever_phone_no:str = Field(..., min_length=3, max_length=50)
+    # content:str 
     
     # @model_validator(mode="after")
     # def validate_imageurl(self):
@@ -23,11 +23,14 @@ class MessageSchema(BaseModel):
         # return self
 
 class TextSchema(MessageSchema):
-    content :str 
+    # content :str 
+    description:str
  
 class AudioSchema(MessageSchema):
-    content :str 
+    # content :str 
+    audioClip:str
 
 class VideoSchema(MessageSchema):
-    content :str 
+    # content :str 
+    videoUrl:str
 

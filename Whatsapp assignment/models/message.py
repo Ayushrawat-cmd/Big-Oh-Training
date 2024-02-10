@@ -16,7 +16,7 @@ class Message(Base):
     reciever_id :Mapped[str] = mapped_column(ForeignKey("users.id"))
     sender: Mapped["User"] = relationship(back_populates="sentMessages")
     reciever : Mapped["User"] = relationship(back_populates="recievedMessage")
-    content:Mapped[str] = mapped_column(String(30)) 
+    # content:Mapped[str] = mapped_column(String(30)) 
     __mapper_args__ = {
         "polymorphic_on": "type",
         "polymorphic_identity": "message",
@@ -25,7 +25,8 @@ class Message(Base):
 class Audio(Message):
     __tablename__ = "audio"
     id: Mapped[str] = mapped_column(ForeignKey("message.id"), primary_key=True)
-    content:Mapped[str] = mapped_column(String(100)) 
+    # content:Mapped[str] = mapped_column(String(100)) 
+    audioClip
     __mapper_args__ = {
         "polymorphic_identity": "audio", 
     }
