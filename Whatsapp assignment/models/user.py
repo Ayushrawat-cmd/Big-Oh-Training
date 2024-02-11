@@ -57,7 +57,7 @@ class Message(Base):
     reciever_phn_no :Mapped[str] = mapped_column(ForeignKey("users.phone_no"))
     sender: Mapped["User"] = relationship(back_populates="sentMessages", foreign_keys=[sender_id])
     reciever : Mapped["User"] = relationship(back_populates="recievedMessages", foreign_keys=[reciever_phn_no])
-    # content:Mapped[str] = mapped_column(String(30)) 
+    content:Mapped[str] = mapped_column(String(30)) 
     __mapper_args__ = {
         "polymorphic_on": "type",
         "polymorphic_identity": "message",

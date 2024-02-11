@@ -25,8 +25,8 @@ class Message(Base):
 class Audio(Message):
     __tablename__ = "audio"
     id: Mapped[str] = mapped_column(ForeignKey("message.id"), primary_key=True)
-    # content:Mapped[str] = mapped_column(String(100)) 
-    audioClip
+    content:Mapped[str] = mapped_column(String(100)) 
+    # audioClip
     __mapper_args__ = {
         "polymorphic_identity": "audio", 
     }
