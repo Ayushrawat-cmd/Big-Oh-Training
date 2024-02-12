@@ -31,7 +31,7 @@ class MessageRepository():
         reciever = self.db.query(UserModel).filter(reciever_id == UserModel.id).first()
         if reciever is None:
             return None
-        msgs = self.db.query(MessageModel).filter(MessageModel.reciever_phn_no ==  reciever.phone_no  ).filter( MessageModel.type == "audio").all()
+        msgs = self.db.query(MessageModel).filter(MessageModel.reciever_phn_no ==  reciever.phone_no  ).all()
         if msgs is None:
             return None
         return msgs

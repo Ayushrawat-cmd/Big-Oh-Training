@@ -1,8 +1,8 @@
 from fastapi import Depends
-from repository.contact_repo import ContactRepository
+from repository.user_repo import UserRepository
 class ContactValidatorService:
-    def __init__(self, contactRepository: ContactRepository = Depends()) -> None:
-        self.repository = contactRepository
+    def __init__(self, userRepository: UserRepository = Depends()) -> None:
+        self.repository = userRepository
 
     def isContactExist(self, contactNo: str, userID:str):
         return self.repository.valid_contact(contactNo, userID)

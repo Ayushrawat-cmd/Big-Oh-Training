@@ -33,7 +33,7 @@ class ContactController:
             user = self.contactServie.getContacts(user_id)
             if user is None:
                 return Errors.HTTP_404_NOT_FOUND
-            return  JSONResponse(status_code=status.HTTP_200_OK, content={"user": jsonable_encoder(user)})
+            return  JSONResponse(status_code=status.HTTP_200_OK, content={"Contacts": jsonable_encoder(user)})
         except Exception as error:
             logger.error(f"Error in getting user {error}")
             return throw_error(status= status.HTTP_500_INTERNAL_SERVER_ERROR, message= "Internal Server Error", error_code= 500, error= error)

@@ -25,7 +25,7 @@ class ContactRepository():
     def getContactsOfUser(self,  userId: str):
         '''Get all contacts of the user from db'''
         db_contacts = self.db.query(ContactModel).filter(userId == ContactModel.user_id).all()
-        return self.db.query(ContactModel).all()
+        return db_contacts
 
     def insert(self,contact: UserSchema, userId:str):
         '''Inserting the user in the db'''
@@ -41,13 +41,7 @@ class ContactRepository():
         self.db.refresh(db_contact)
         return db_contact
     
-    def valid_contact(self, contactNo:str, userId:str):
-        '''Is the given contact id exist by the userId'''        
-        db_contact = self.db.query(ContactModel).filter(ContactModel.phone_no == contactNo).first()
-        print(db_contact)
-        if db_contact is None:
-            return False
-        return db_contact.user_id == userId
+    
     
     # def delete(self, contactId:str, userId:str):
     #     '''Deleting the contact from the users contact list'''

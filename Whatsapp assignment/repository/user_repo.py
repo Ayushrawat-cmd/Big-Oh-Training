@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from utils.logger import Logger
 from utils.db_connection import get_db_session
 from models.user import User as UserModel
+from models.user import Contact as ContactModel
 from repository.contact_repo import ContactRepository
 from schema.user_schema import UserSchema
 
@@ -55,6 +56,13 @@ class UserRepository():
         return True
         # self.db.refresh()
 
+    def valid_contact(self, contactNo:str, userId:str):
+        '''Is the given contact id exist by the userId'''        
+        db_contact = self.db.query(UserModel).filter(UserModel.id == userId).join(UserModel.contacts).filter(ContactModel.phone_no == contactNo).first()
+        print(db_contact)
+        if db_contact is None:
+            return False
+        return True
     # def update(self, movie: MovieSchema):
     #     '''Update the movie in the database'''
     #     logger.debug(f"Update movie {movie}")

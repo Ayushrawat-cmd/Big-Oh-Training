@@ -33,9 +33,9 @@ class MessageService():
     def sendMessage(self, msg:Union[ AudioSchema, TextSchema, VideoSchema], senderId: str):
         '''Send the audio message'''
         logger.debug(f'Sending message {msg}')
-        # if self.contactValidationService.isContactExist(msg.reciever_phone_no, senderId):
-        return self.repository.insert(msg,senderId)
-        # return False
+        if self.contactValidationService.isContactExist(msg.reciever_phone_no, senderId):
+            return self.repository.insert(msg,senderId)
+        return False
     
     # def sendTextMessage(self, msg:TextSchema, senderId:)
 
