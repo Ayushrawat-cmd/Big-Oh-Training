@@ -22,7 +22,7 @@ class MovieRepository():
         return self.db.query(MovieModel).filter(MovieModel.id == id).first()
     
     def insert(self, movie: MovieSchema):
-        print(movie)
+        '''Inserting the movie in the db'''
         logger.debug(f'Insert movie {movie}')
         db_movie = MovieModel(id = movie.id, name=movie.name, rating = movie.rating, image = movie.image)
         self.db.add(db_movie)
@@ -30,6 +30,7 @@ class MovieRepository():
         self.db.refresh(db_movie)
 
     def delete(self, movieId):
+        '''Delete query for the deleting movie from db'''
         db_movie = self.db.query(MovieModel).filter(MovieModel.id == movieId).first()
         # print(db_movie.id)
         if db_movie is None:
@@ -48,7 +49,7 @@ class MovieRepository():
         if db_movie is None:
             return None
         db_movie.name = movie.name
-        db_movie.image = movie.id
+        db_movie.image = movie.image
         db_movie.rating = movie.rating
         # db_movie_query.update(id = movie.id, name= movie.name)
         self.db.commit()

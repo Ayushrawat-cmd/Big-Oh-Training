@@ -71,7 +71,7 @@ class MovieController:
             if updated_movie is None:
                 return Errors.HTTP_404_NOT_FOUND
             # item = self.service.insertTask(newItem)
-            return JSONResponse(status_code=status.HTTP_201_CREATED, content={"message":"Movie updated", "movie":jsonable_encoder(updated_movie)})
+            return JSONResponse(status_code=status.HTTP_200_OK, content={"message":"Movie updated", "movie":jsonable_encoder(updated_movie)})
             # return {"message":"Task created", "task": item}
         except Exception as error:
             logger.error(f'Error insterting task: {error}')
